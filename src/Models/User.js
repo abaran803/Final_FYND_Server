@@ -67,11 +67,19 @@ const account = new mongoose.Schema({
         type: String,
         required: true
     },
+    city: {
+        type: String,
+        required: true
+    },
+    pincode: {
+        type: String,
+        required: true
+    },
     dob: {
         type: String,
         required: true
     },
-    phno: {
+    mob_no: {
         type: String,
         required: true
     },
