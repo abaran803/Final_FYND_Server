@@ -110,7 +110,15 @@ const account = new mongoose.Schema({
     rating: {
         type: mongoose.Types.Decimal128,
         default: -1
-    }
+    },
+
+    // Token of all the logged in session
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 })
 
 const Category = new mongoose.model('Category', category);
