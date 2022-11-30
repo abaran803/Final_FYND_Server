@@ -1,6 +1,6 @@
 // Configuring the Database here
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/ff')
+mongoose.connect(`${process.env.MONGO_URI}/ff`)
 .then(res => console.log("Connected to Database"))
 .catch(err => console.log("Error:", err.message));
