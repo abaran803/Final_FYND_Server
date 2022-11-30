@@ -41,6 +41,7 @@ const auth = async (req, res, next) => {
         req.user = user
         next()
     } catch (e) {
+        console.log(e.message);
         res.status(401).send({ error: 'Please authenticate.' })
     }
 }
@@ -71,6 +72,7 @@ const addCategory = async (req, res) => {
 
         res.status(200).json(response);
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -91,6 +93,7 @@ const addProduct = async (req, res) => {
 
         res.status(200).json(response);
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -109,6 +112,7 @@ const addAccount = async (req, res) => {
 
         res.status(200).json(response);
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -163,6 +167,7 @@ const uploadBulkData = async (req, res) => {
 
         res.json({ message: 'File Successfully Uploaded' });
     } catch (e) {
+        console.log(e.message);
         res.json({ message: 'Error: ' + e.message }).status(404);
     }
 
@@ -186,6 +191,7 @@ const getAllCategories = async (req, res) => {
         res.status(200).json(data);
 
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -215,6 +221,7 @@ const getProductsByCategory = async (req, res) => {
         res.status(200).json(data);
 
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -238,6 +245,7 @@ const getProductById = async (req, res) => {
         res.status(200).json(data);
 
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -269,6 +277,7 @@ const getProductsByName = async (req, res) => {
 
     } catch (e) {
         console.log(e.message);
+        console.log(e.message);
         res.json({ Error: e.message }).status(400)
     }
 
@@ -288,6 +297,7 @@ const getSellerData = async (req, res) => {
         res.status(200).json(data);
 
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -314,6 +324,7 @@ const findAccount = async (req, res) => {
         res.status(200).json({...response, token});
     } catch (e) {
         console.log(e.message);
+        console.log(e.message);
         res.status(404).json({ Error: e.message });
     }
 
@@ -338,6 +349,7 @@ const deleteProductById = async (req, res) => {
         res.status(200).json(data);
 
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -358,6 +370,7 @@ const deleteAccountByMail = async (req, res) => {
         res.status(200).json(data);
 
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
@@ -386,6 +399,7 @@ const findAndUpdateAccount = async (req, res) => {
         res.status(200).json(response);
 
     } catch (e) {
+        console.log(e.message);
         res.status(400).json({ Error: e.message })
     }
 
