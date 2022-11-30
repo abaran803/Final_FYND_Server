@@ -13,14 +13,15 @@ const {
     deleteAccountByMail,
     findAndUpdateAccount,
     uploadBulkData,
-    getSellerData
+    getSellerData,
 } = require('../Helpers/db');
 
 // Adding Data to Database
 router.post('/addCategory', addCategory);
-router.post('/addProduct', addProduct);
+router.post('/upload/', addProduct);
 router.post('/addAccount', addAccount);
 router.post('/upload/bulk', uploadBulkData);
+router.post('/upload/single', addProduct);
 
 // Getting Data from Database
 router.get('/getAllCategories', getAllCategories);

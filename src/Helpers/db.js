@@ -78,6 +78,9 @@ const addCategory = async (req, res) => {
 
 const addProduct = async (req, res) => {
 
+    // Static value, update to dynamic later
+    req.body.image = 'https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-math-90946.jpg&fm=jpg';
+
     try {
         const newProduct = new Product(req.body);
         const response = await newProduct.save();

@@ -21,7 +21,7 @@ const category = new mongoose.Schema({
 const product = new mongoose.Schema({
     id: {
         type: String,
-        required: true,
+        default: mongoose.Types.ObjectId(),
         unique: true
     },
     name: {
@@ -42,6 +42,13 @@ const product = new mongoose.Schema({
     },
     category: {
         type: String
+    },
+    area: {
+        type: String
+    },
+    description: {
+        type: String,
+        required: true
     }
 })
 
