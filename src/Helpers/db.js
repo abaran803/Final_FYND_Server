@@ -263,7 +263,7 @@ const getProductsByName = async (req, res) => {
         // List of authentication of all the seller
         const condition = await Promise.all(data.map(async (item) => {
             const isAuth = await Account.findOne({ _id: item.sellerId });
-            return isAuth.isAuth;
+            return isAuth ? isAuth.isAuth : false;
         }));
 
         // Filtering the products based on the authentication of seller
