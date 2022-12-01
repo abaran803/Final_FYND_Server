@@ -203,7 +203,8 @@ const getProductsByCategory = async (req, res) => {
     try {
 
         const category = req.params.category;
-        let data = await Product.find({ category });
+        console.log(category);
+        let data = await Product.find({ category: {$regex: category, $options: 'i'} });
 
         // List of authentication of all the seller
         const condition = await Promise.all(data.map(async (item) => {
