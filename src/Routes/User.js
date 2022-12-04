@@ -14,6 +14,7 @@ const {
     findAndUpdateAccount,
     uploadBulkData,
     getSellerData,
+    getNumberOfProduct,
 } = require('../Helpers/db');
 
 // Adding Data to Database
@@ -29,6 +30,7 @@ router.get('/getProductsByCategory/:category', getProductsByCategory);
 router.get('/getProductById/:id', getProductById);
 router.get('/productsByName/:query', getProductsByName);
 router.get('/seller/:id', getSellerData);
+router.get('/getNumberOfProduct/:count', getNumberOfProduct) // Getting n numbet of products
 
 // Deleting Data from Database
 router.delete('/deleteProductById/:id', deleteProductById);

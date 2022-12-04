@@ -325,8 +325,38 @@ const findAccount = async (req, res) => {
         res.status(200).json({...response, token});
     } catch (e) {
         console.log(e.message);
-        console.log(e.message);
         res.status(404).json({ Error: e.message });
+    }
+
+}
+
+const getNumberOfProduct = async (req, res) => {
+
+    try {
+
+        const count = req.params.count;
+
+        // All the products
+        let data = await Product.find({}).limit(count);
+
+        // List of authentication of all the seller
+        const condition = await Promise.all(data.map(async (item) => {
+            const isAuth = await Account.findOne({ _id: item.sellerId });
+            return isAuth ? isAuth.isAuth : false;
+        }));
+
+        // Filtering the products based on the authentication of seller
+        data = data.filter((item, index) => condition[index]);
+
+        if (!data) {
+            throw new Error("Not Saved");
+        }
+
+        res.status(200).json(data);
+
+    } catch (e) {
+        console.log(e.message);
+        res.json({ Error: e.message }).status(400)
     }
 
 }
@@ -413,12 +443,13 @@ module.exports = {
     getAllCategories,
     getProductsByCategory,
     getProductById,
+    getSellerData,
     getProductsByName,
+    getNumberOfProduct,
     deleteProductById,
     deleteAccountByMail,
     findAndUpdateAccount,
     uploadBulkData,
-    getSellerData,
     findAccount,
     auth
 }
