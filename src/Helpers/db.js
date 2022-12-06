@@ -330,6 +330,67 @@ const findAccount = async (req, res) => {
 
 }
 
+const getProfileOverview = async (req, res) => {
+    
+    try {
+
+        const id = req.params.id;
+
+        // All the products
+        let data = await Account.findById(id);
+
+        data.tokens = undefined;
+        data.rating = undefined;
+        data.aadhar = undefined;
+        data.dob = undefined;
+        data.email = undefined;
+        data.isAuth = undefined;
+        data.mob_no = undefined;
+        data.pan = undefined;
+        data.pincode = undefined;
+        data.userType = undefined;
+
+        if (!data) {
+            throw new Error("Not Saved");
+        }
+
+        res.status(200).json(data);
+
+    } catch (e) {
+        console.log(e.message);
+        res.json({ Error: e.message }).status(400)
+    }
+
+}
+
+const getProfileFull = async (req, res) => {
+    
+    try {
+
+        const id = req.params.id;
+
+        // All the products
+        let data = await Account.findById(id);
+
+        data.tokens = undefined;
+        data.aadhar = undefined;
+        data.isAuth = undefined;
+        data.pan = undefined;
+        data.userType = undefined;
+
+        if (!data) {
+            throw new Error("Not Saved");
+        }
+
+        res.status(200).json(data);
+
+    } catch (e) {
+        console.log(e.message);
+        res.json({ Error: e.message }).status(400)
+    }
+
+}
+
 const getNumberOfProduct = async (req, res) => {
 
     try {
@@ -451,5 +512,7 @@ module.exports = {
     findAndUpdateAccount,
     uploadBulkData,
     findAccount,
-    auth
+    auth,
+    getProfileOverview,
+    getProfileFull
 }

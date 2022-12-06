@@ -15,6 +15,8 @@ const {
     uploadBulkData,
     getSellerData,
     getNumberOfProduct,
+    getProfileOverview,
+    getProfileFull,
 } = require('../Helpers/db');
 
 // Adding Data to Database
@@ -31,6 +33,8 @@ router.get('/getProductById/:id', getProductById);
 router.get('/productsByName/:query', getProductsByName);
 router.get('/seller/:id', getSellerData);
 router.get('/getNumberOfProduct/:count', getNumberOfProduct) // Getting n numbet of products
+router.get('/profileOverview/:id', getProfileOverview);
+router.get('/profileFull/:id', getProfileFull);
 
 // Deleting Data from Database
 router.delete('/deleteProductById/:id', deleteProductById);
