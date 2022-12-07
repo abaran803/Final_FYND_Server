@@ -1,7 +1,8 @@
 const {
     Category,
     Product,
-    Account
+    Account,
+    Cart
 } = require('../Models/User');
 
 const fs = require('fs');
@@ -173,6 +174,49 @@ const uploadBulkData = async (req, res) => {
 
 }
 
+const addCartItem = async (req, res) => {
+
+    try {
+
+        let response = await Cart.findOne({
+            buyerId: req.body.buyerId,
+            productId: req.body.productId
+        });
+
+        if (!response) {
+
+            const newCartItem = new Cart(req.body)
+            newCartItem.save();
+            return res.status(200).json(newCartItem);
+
+        } else {
+            if (response.count + req.body.count <= 0) {
+                response = await Cart.findOneAndDelete(
+                    {
+                        buyerId: req.body.buyerId,
+                        productId: req.body.productId
+                    }
+                )
+            } else {
+                response = await Cart.updateOne(
+                    {
+                        buyerId: req.body.buyerId,
+                        productId: req.body.productId
+                    },
+                    { $inc: { count: req.body.count } }
+                )
+            }
+
+        }
+
+        res.status(200).json(response);
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).json({ Error: e.message })
+    }
+
+}
+
 
 
 // Getting Data ----------------------------------------
@@ -197,14 +241,31 @@ const getAllCategories = async (req, res) => {
 
 }
 
+// Getting all the cart items
+const getCartData = async (req, res) => {
+
+    try {
+
+        const id = req.params.id;
+        const cartData = await Cart.find(
+            { buyerId: id }
+        );
+
+        res.status(200).json(cartData || []);
+    } catch (e) {
+        console.log(e.message);
+        res.status(400).json({ Error: e.message })
+    }
+
+}
+
 // Getting all the products from same category
 const getProductsByCategory = async (req, res) => {
 
     try {
 
         const category = req.params.category;
-        console.log(category);
-        let data = await Product.find({ category: {$regex: category, $options: 'i'} });
+        let data = await Product.find({ category: { $regex: category, $options: 'i' } });
 
         // List of authentication of all the seller
         const condition = await Promise.all(data.map(async (item) => {
@@ -278,7 +339,6 @@ const getProductsByName = async (req, res) => {
 
     } catch (e) {
         console.log(e.message);
-        console.log(e.message);
         res.json({ Error: e.message }).status(400)
     }
 
@@ -322,7 +382,7 @@ const findAccount = async (req, res) => {
         response.tokens = undefined;
         response.password = undefined;
 
-        res.status(200).json({...response, token});
+        res.status(200).json({ ...response, token });
     } catch (e) {
         console.log(e.message);
         res.status(404).json({ Error: e.message });
@@ -331,7 +391,7 @@ const findAccount = async (req, res) => {
 }
 
 const getProfileOverview = async (req, res) => {
-    
+
     try {
 
         const id = req.params.id;
@@ -364,7 +424,7 @@ const getProfileOverview = async (req, res) => {
 }
 
 const getProfileFull = async (req, res) => {
-    
+
     try {
 
         const id = req.params.id;
@@ -455,7 +515,6 @@ const deleteAccountByMail = async (req, res) => {
         const data = await Account.findOneAndDelete({ email: mail });
 
         if (!data) {
-            console.log(data);
             throw new Error("Not Saved");
         }
 
@@ -514,5 +573,7 @@ module.exports = {
     findAccount,
     auth,
     getProfileOverview,
-    getProfileFull
+    getProfileFull,
+    getCartData,
+    addCartItem
 }

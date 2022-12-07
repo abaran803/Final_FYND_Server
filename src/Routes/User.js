@@ -17,6 +17,8 @@ const {
     getNumberOfProduct,
     getProfileOverview,
     getProfileFull,
+    getCartData,
+    addCartItem,
 } = require('../Helpers/db');
 
 // Adding Data to Database
@@ -25,6 +27,7 @@ router.post('/upload/', addProduct);
 router.post('/addAccount', addAccount);
 router.post('/upload/bulk', uploadBulkData);
 router.post('/upload/single', addProduct);
+router.put('/addToCart', addCartItem);
 
 // Getting Data from Database
 router.get('/getAllCategories', getAllCategories);
@@ -35,6 +38,7 @@ router.get('/seller/:id', getSellerData);
 router.get('/getNumberOfProduct/:count', getNumberOfProduct) // Getting n numbet of products
 router.get('/profileOverview/:id', getProfileOverview);
 router.get('/profileFull/:id', getProfileFull);
+router.get('/getCartData/:id', getCartData);
 
 // Deleting Data from Database
 router.delete('/deleteProductById/:id', deleteProductById);

@@ -128,12 +128,29 @@ const account = new mongoose.Schema({
     }]
 })
 
+const cart = new mongoose.Schema({
+    productId: {
+        type: String,
+        required: true
+    },
+    buyerId: {
+        type: String,
+        required: true
+    },
+    count: {
+        type: Number,
+        required: true
+    }
+})
+
 const Category = new mongoose.model('Category', category);
 const Product = new mongoose.model('Product', product);
 const Account = new mongoose.model('Account', account);
+const Cart = new mongoose.model('Cart', cart);
 
 module.exports = {
     Category,
     Product,
-    Account
+    Account,
+    Cart
 }
