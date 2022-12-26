@@ -169,7 +169,7 @@ const uploadBulkData = async (req, res) => {
         res.json({ message: 'File Successfully Uploaded' });
     } catch (e) {
         console.log(e.message);
-        res.json({ message: 'Error: ' + e.message }).status(404);
+        res.status(404).json({ message: 'Error: ' + e.message });
     }
 
 }
